@@ -1,16 +1,17 @@
 package com.luxoft.springdb.lab3.service;
 
-import java.util.List;
-
+import com.luxoft.springdb.lab3.dao.CountryDao;
+import com.luxoft.springdb.lab3.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.luxoft.springdb.lab3.dao.CountryDao;
-import com.luxoft.springdb.lab3.model.Country;
+import java.util.List;
 
 //@Repository is more convenient declaration for such a class than general @Service
-@Repository
+@Repository(value = "countryService")
+@Transactional
 public class CountryServiceImpl implements CountryService {
 
 	
@@ -36,26 +37,32 @@ public class CountryServiceImpl implements CountryService {
 		}
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<Country> getAllCountriesRequired() {
 		return countryDao.getCountryList();
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public List<Country> getAllCountriesRequiresNew() {
 		return countryDao.getCountryList();
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<Country> getAllCountriesSupports() {
 		return countryDao.getCountryList();
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.NEVER)
 	public List<Country> getAllCountriesNever() {
 		return countryDao.getCountryList();
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.MANDATORY)
 	public List<Country> getAllCountriesMandatory() {
 		return countryDao.getCountryList();
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
 	public List<Country> getAllCountriesNotSupported() {
 		return countryDao.getCountryList();
 	}
